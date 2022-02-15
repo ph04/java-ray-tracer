@@ -26,4 +26,12 @@ public class Vector3D {
     public Vector3D scale(double scalar) {
         return new Vector3D(this.x * scalar, this.y * scalar, this.z * scalar);
     }
+
+    public Vector3D neg() {
+        return new Vector3D(-this.x, -this.y, -this.z);
+    }
+
+    public Vector3D add(Vector3D other) {
+        return new Vector3D(this.x + other.x, this.y + other.y, this.z + other.z);
+    }
 }

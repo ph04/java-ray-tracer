@@ -2,11 +2,13 @@ public class Sphere {
     public Point3D center;
     public CustomColor color;
     public double radius;
+    public double specular;
 
-    public Sphere(Point3D center, CustomColor color, double radius) {
+    public Sphere(Point3D center, CustomColor color, double radius, double specular) {
         this.center = center;
         this.color = color;
         this.radius = radius;
+        this.specular = specular;
     }
 
     // public double[] RayIntersection(Point3D O, Vector3D D) {

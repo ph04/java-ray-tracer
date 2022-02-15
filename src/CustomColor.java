@@ -17,8 +17,11 @@ public class CustomColor {
         this.r = CustomColor.clamp(r);
         this.g = CustomColor.clamp(g);
         this.b = CustomColor.clamp(b);
+        // System.out.println(r);
+        // System.out.println(g);
+        // System.out.println(b);
 
-        this.RGBModel = new Color(r, g, b).getRGB();
+        this.RGBModel = new Color(this.r, this.g, this.b).getRGB();
     }
 
     public CustomColor scale(double scalar) {

@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        Sphere sphere1 = new Sphere(new Point3D(0.0, -1.0, 3.0), new CustomColor(255, 0, 0), 1.0);
-        Sphere sphere2 = new Sphere(new Point3D(2.0, 0.0, 4.0), new CustomColor(0, 0, 255), 1.0);
-        Sphere sphere3 = new Sphere(new Point3D(-2.0, 0.0, 4.0), new CustomColor(0, 255, 0), 1.0);
-        Sphere sphere4 = new Sphere(new Point3D(0.0, -5001.0, 0.0), new CustomColor(255, 255, 0), 5000.0);
+        Sphere sphere1 = new Sphere(new Point3D(0.0, -1.0, 3.0), new CustomColor(255, 0, 0), 1.0, 500.0);
+        Sphere sphere2 = new Sphere(new Point3D(2.0, 0.0, 4.0), new CustomColor(0, 0, 255), 1.0, 500.0);
+        Sphere sphere3 = new Sphere(new Point3D(-2.0, 0.0, 4.0), new CustomColor(0, 255, 0), 1.0, 10.0);
+        Sphere sphere4 = new Sphere(new Point3D(0.0, -5001.0, 0.0), new CustomColor(255, 255, 0), 5000.0, 1000.0);
 
         AmbientLight ambient_light = new AmbientLight(0.2);
         LightPoint light_point = new LightPoint(0.6, new Point3D(2.0, 1.0, 0.0));
@@ -16,7 +16,8 @@ public class Main {
             new DirectionalLight[]{directional_light}
         );
 
-        CustomColor bg = new CustomColor(255, 255, 255);
+        // CustomColor bg = new CustomColor(255, 255, 255);
+        CustomColor bg = new CustomColor(0, 0, 0);
 
         // draw anything that is beyond the viewport
         double t_min = 1; 

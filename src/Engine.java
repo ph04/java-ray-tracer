@@ -1,7 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public class Engine {
@@ -29,7 +28,7 @@ public class Engine {
         this.O = new Point3D(0.0, 0.0, 0.0);
     }
 
-    public double ComputeLighting(Point3D P, Vector3D N) {
+    public double ComputeLighting(Point3D P, Vector3D N, Vector3D V, double specular) {
         double i = 0.0;
 
         for (AmbientLight ambient_light : this.scene.ambient_lights) {
@@ -41,8 +40,20 @@ public class Engine {
 
             double n_dot_l = N.DotProduct(L);
 
+            // diffuse lighting
             if (n_dot_l > 0) { // avoid adding lights illuminating the back side of the surface
                 i += light_point.intensity * n_dot_l / (N.Magnitude() * L.Magnitude());
+            }
+
+            // specular lighting
+            if (specular != -1) { // only apply this to shiny objects
+                Vector3D R = N.scale(n_dot_l * 2).add(L.neg());
+
+                double r_dot_v = R.DotProduct(V);
+
+                if (r_dot_v > 0) { // same reason
+                    i += light_point.intensity * Math.pow(r_dot_v / (R.Magnitude() * V.Magnitude()), specular);
+                }
             }
         }
 
@@ -51,8 +62,20 @@ public class Engine {
 
             double n_dot_l = N.DotProduct(L);
 
+            // diffuse lighting
             if (n_dot_l > 0) { // avoid adding lights illuminating the back side of the surface
                 i += directional_light.intensity * n_dot_l / (N.Magnitude() * L.Magnitude());
+            }
+
+            // specular lighting
+            if (specular != -1) { // only apply this to shiny objects
+                Vector3D R = N.scale(n_dot_l * 2).add(L.neg());
+
+                double r_dot_v = R.DotProduct(V);
+
+                if (r_dot_v > 0) { // same reason
+                    i += directional_light.intensity * Math.pow(r_dot_v / (R.Magnitude() * V.Magnitude()), specular);
+                }
             }
         }
 
@@ -83,7 +106,7 @@ public class Engine {
             Point3D P = O.add(D.scale(closest_t)); // intersection point between the ray and the sphere
             Vector3D N = (P.Direction(closest_sphere.center)).Normal(); // normal passing through P
 
-            return closest_sphere.color.scale(this.ComputeLighting(P, N));
+            return closest_sphere.color.scale(this.ComputeLighting(P, N, D.neg(), closest_sphere.specular));
         }
     }
 
