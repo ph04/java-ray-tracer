@@ -17,9 +17,6 @@ public class CustomColor {
         this.r = CustomColor.clamp(r);
         this.g = CustomColor.clamp(g);
         this.b = CustomColor.clamp(b);
-        // System.out.println(r);
-        // System.out.println(g);
-        // System.out.println(b);
 
         this.RGBModel = new Color(this.r, this.g, this.b).getRGB();
     }
@@ -30,5 +27,9 @@ public class CustomColor {
             (int) Math.round((double) this.g * scalar),
             (int) Math.round((double) this.b * scalar)
         );
+    }
+
+    public CustomColor add(CustomColor other) {
+        return new CustomColor(this.r + other.r, this.g + other.g, this.b + other.b);
     }
 }

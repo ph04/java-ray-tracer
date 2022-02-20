@@ -34,4 +34,8 @@ public class Vector3D {
     public Vector3D add(Vector3D other) {
         return new Vector3D(this.x + other.x, this.y + other.y, this.z + other.z);
     }
+
+    public Vector3D ReflectVector(Vector3D N) {
+        return N.scale(this.DotProduct(N) * 2).add(this.neg());
+    }
 }
